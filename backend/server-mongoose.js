@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 
 require("dotenv").config();
 const app = express();
@@ -12,20 +12,16 @@ const uri = process.env.ATLAS_URI;
 app.use(cors());
 app.use(express.json());
 
-//MongoDB Connection
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-client.connect((err) => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
+// Mongoose connection
+mongoose.connect(uri);
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB database connection established successfully!");
 });
 
 // Routes
 const usersRouter = require("./routes/users");
+
 app.use("/users", usersRouter);
 
 // Set Up Server
