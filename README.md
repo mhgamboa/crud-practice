@@ -1,3 +1,3 @@
 # CRUD Practice
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Pretty much scratch paper where I can practice/learn different stuffs
